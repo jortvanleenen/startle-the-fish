@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Startle the fish</title>
+
+    <style>
+        .fish {
+            position: absolute;
+        }
+
+        .looking-to-left {
+            transform: scaleX(-1);
+        }
+    </style>
+</head>
+<body>
+<p id="text">
+    Startle the fish, or not. Touching him is kind of
+    sad wouldn't you reckon? <span id="sad">I think so</span>.
+</p>
+<pre id="fish" class="fish">
+               o
+                  o
+         o   ______      o
+           _/  (   \_
+ _       _/  (       \_  O
+| \_   _/  (   (    0  \
+|== \_/  (   (          |
+|=== _ (   (   (        |
+|==_/ \_ (   (          |
+|_/     \_ (   (    \__/
+          \_ (      _/
+            |  |___/
+           /__/
+</pre>
+<script>
+  const no_smiling_fish = '               o\n' +
+    '                  o\n' +
+    '         o   ______      o\n' +
+    '           _/  (   \\_\n' +
+    ' _       _/  (       \\_  O\n' +
+    '| \\_   _/  (   (    0  \\\n' +
+    '|== \\_/  (   (          |\n' +
+    '|=== _ (   (   (        |\n' +
+    '|==_/ \\_ (   (          |\n' +
+    '|_/     \\_ (   (    ___/\n' +
+    '          \\_ (      _/\n' +
+    '            |  |___/\n' +
+    '           /__/'
+
+  const sad_fish = '               o\n' +
+    '                  o\n' +
+    '         o   ______      o\n' +
+    '           _/  x   \\_\n' +
+    ' _       _/  (       \\_  O\n' +
+    '| \\_   _/  x   (    .  \\\n' +
+    '|-= \\_/  (   (          |\n' +
+    '|=-= _ (   (   x        |\n' +
+    '|==_/ \\_ (   (          |\n' +
+    '|_/     \\_ (   (    ___/\n' +
+    '          \\_ x     /_/\n' +
+    '            |  |___/\n' +
+    '           /__/'
+
+  const dead_fish = '\n\n' +
+    '                 ______\n' +
+    '               _/  x   \\_\n' +
+    ' _ .         _/  x       \\_  \n' +
+    '|    .   _/  x   (    X  \\\n' +
+    '|- \\.*   _/  (   (        x |\n' +
+    '|=-= _. * (   x   x         |\n' +
+    '|==_/    .\\_ (   (    x     |\n' +
+    '|_/    . *  \\_ (   (    ___/\n' +
+    '              \\_ x     /_/\n' +
+    '                |  |___/\n' +
+    '               /__/'
+  const fish = document.getElementById('fish');
+  const text = document.getElementById('text');
+  const sad = document.getElementById('sad');
+  if (window.location.hash === '#returned') {
+    if (text) {
+      text.innerHTML += ' Or not, as your returned to startle the fish???' +
+        ' There goes your good karma.';
+    }
+  }
+  if (sad && fish) {
+    sad.addEventListener('click', () => {
+      fish.remove();
+      text.innerHTML = 'You clicked \'I think so\' and the fish survived.' +
+        ' You allowed it to safely swim away and continue on its journey ' +
+        'through the vast and spanning ocean. The fish thanks you. ' +
+        '<a href="/#returned">Play again?</a>';
+    });
+  }
+
+  let clicks = 0;
+  if (fish && text) {
+    console.log('Fiiiiissh!');
+    fish.addEventListener('click', () => {
+      clicks++;
+      if (clicks === 10) {
+        fish.innerHTML = no_smiling_fish;
+      }
+      if (clicks === 100) {
+        if (text) {
+          text.innerText = 'The fish died a foreseen death.';
+        }
+        fish.innerHTML = dead_fish;
+      }
+      if (clicks === 101) {
+        fish.remove();
+        text.innerHTML = '<em>The player, not having had enough torturing of' +
+          ' the poor fish, decided to poke its corpse again. What did the ' +
+          'player anticipate in happening? We do not know. He did,' +
+          ' however, find a note the fish carried with him, he read it' +
+          ' out loud:</em><br><br>' +
+          'Dear player,<br><br>' +
+          'I am writing this note from beyond the grave, as I am a fish who' +
+          ' was poked to death 100 times, and then one final time. ' +
+          'I want to express my sadness and grief at the loss of my life,' +
+          ' and the untimely end that I suffered.<br><br>' +
+          'I understand that you were just playing a game, but I cannot' +
+          ' help but feel a sense of betrayal and injustice at the way that' +
+          ' I was treated. I was a living, breathing being with feelings' +
+          ' and desires, and my life was taken from me without mercy.<br><br>' +
+          'I hope that this note serves as a reminder of the value and worth' +
+          ' of all living creatures, and that you will think twice before' +
+          ' causing harm to another being.<br><br>' +
+          'Goodbye, dear player. May you find peace and redemption for' +
+          ' your actions.<br><br> Sincerely,<br><br>Startle, the fish.' +
+          '<br><br><em>' +
+          'It is then, that the player realised the message at the start of' +
+          ' the game did not tell him to startle the fish, but was merely ' +
+          'an introduction of the goodboy fish named Startle. ' +
+          'The player left the game with a word to never return again.</em>';
+        text.style.textAlign = 'center';
+      }
+
+      if (clicks < 100) {
+        if (Math.random() > 0.9 && clicks > 80) {
+          fish.innerHTML = sad_fish;
+          // Fish is done with it, goes bonkers
+          for (let i = 0; i < 20; i++) {
+            console.log('first loop ', i);
+            setTimeout(() => {
+              fish.classList.toggle('looking-to-left');
+            }, i * 100);
+          }
+        }
+        fish.style.top = `${Math.random() * 70}vh`;
+        fish.style.left = `${Math.random() * 70}vw`;
+        if (fish.style.left < '40vw') {
+          fish.classList.remove('looking-to-left');
+        } else {
+          fish.classList.add('looking-to-left');
+        }
+      }
+    });
+  }
+</script>
+</body>
+</html>
