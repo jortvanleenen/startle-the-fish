@@ -103,9 +103,7 @@
         fish.innerHTML = no_smiling_fish;
       }
       if (clicks === 100) {
-        if (text) {
           text.innerText = 'The fish died a foreseen death.';
-        }
         fish.innerHTML = dead_fish;
       }
       if (clicks === 101) {
@@ -114,8 +112,7 @@
           ' the poor fish, decided to poke its corpse again. What did the ' +
           'player anticipate in happening? We do not know. He did,' +
           ' however, find a note the fish carried with him, he read it' +
-          ' out loud:</em><br><br>' +
-          'Dear player,<br><br>' +
+          ' out loud:</em><br><br>Dear player,<br><br>' +
           'I am writing this note from beyond the grave, as I am a fish who' +
           ' was poked to death 100 times, and then one final time. ' +
           'I want to express my sadness and grief at the loss of my life,' +
@@ -133,8 +130,9 @@
           'It is then, that the player realised the message at the start of' +
           ' the game did not tell him to startle the fish, but was merely ' +
           'an introduction of the goodboy fish named Startle. ' +
-          'The player left the game with a word to never return again.</em>';
+          'The player left the game without a word to never return again.</em>';
         text.style.textAlign = 'center';
+        text.style.margin = '5% 15%';
       }
 
       if (clicks < 100) {
@@ -148,9 +146,11 @@
             }, i * 100);
           }
         }
+        const old_x = parseInt(fish.style.left, 10);
         fish.style.top = `${Math.random() * 70}vh`;
-        fish.style.left = `${Math.random() * 70}vw`;
-        if (fish.style.left < '40vw') {
+        const new_x = Math.random() * 70;
+        fish.style.left = `${new_x}vw`;
+        if (new_x - old_x > 0) {
           fish.classList.remove('looking-to-left');
         } else {
           fish.classList.add('looking-to-left');
