@@ -90,7 +90,8 @@
       text.innerHTML = 'You clicked \'I think so\' and the fish survived.' +
         ' You allowed it to safely swim away and continue on its journey ' +
         'through the vast and spanning ocean. The fish thanks you. ' +
-        '<a href="#returned">Play again?</a>';
+        '<a href="#" onClick="window.location = \'#returned\';' +
+        ' window.location.reload(true);">Play again?</a>';
     });
   }
 
@@ -103,7 +104,7 @@
         fish.innerHTML = no_smiling_fish;
       }
       if (clicks === 100) {
-          text.innerText = 'The fish died a foreseen death.';
+        text.innerText = 'The fish died a foreseen death.';
         fish.innerHTML = dead_fish;
       }
       if (clicks === 101) {
