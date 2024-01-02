@@ -1,4 +1,4 @@
-# [Startle a fish](https://www.startle-the-fish.nl/)
+# [Startle a fish](https://jortvanleenen.github.io/startle-the-fish/)
 "Startle the fish, or not. Touching him is kind of mean wouldn't you reckon? I think so."
 
 _As seen on various Useless Website indices, wiki's and sites._
